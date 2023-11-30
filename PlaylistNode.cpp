@@ -43,7 +43,10 @@ void PlaylistNode::InsertAfter(PlaylistNode* nodePtr){
 }
 
 void PlaylistNode::SetNext(PlaylistNode* nodePtr){
-   cout << "Function stub for SetNext(nodePtr)" << endl;
+   PlaylistNode* tmpNode; 
+   tmpNode = this->nextNodePtr;
+   this->nextNodePtr = nodePtr;
+   nodePtr -> nextNodePtr = tmpNode;
 }
 
 void PlaylistNode::PrintPlaylistNode(){
