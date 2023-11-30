@@ -19,8 +19,8 @@ class PlaylistNode{
    void PrintPlaylistNode();
 
    
-   // PlaylistNode* GetNext();
-   // void InsertAfter(PlaylistNode* nodePtr);
+   PlaylistNode* GetNext();
+   void InsertAfter(PlaylistNode* nodePtr);
    // void SetNext(PlaylistNode* nodePtr);
    
 };
