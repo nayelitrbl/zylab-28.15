@@ -18,24 +18,50 @@ void PrintMenu(const string playlistTitle){
 }
 
 PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headNode){
-   PlaylistNode* currNode = headNode->GetNext();
+   PlaylistNode* currNode = headNode;
    
    if(option == 'q'){
       return 0;
    }
    else if(option == 'o'){
       cout << playlistTitle << " - OUTPUT FULL PLAYLIST" << endl;
+      if(currNode == nullptr){
+         cout << "Playlist is empty" << endl;  
+      }
       int i = 1;
-      while(currNode != NULL){
+      while(currNode != nullptr){
          cout << i << "." << endl;
          currNode->PrintPlaylistNode();
          currNode = currNode->GetNext();
          i++;
       }
-      
-      if(currNode == NULL){
-         cout << "Playlist is empty" << endl;  
+   }
+   else if(option == 'a'){    //FIXME add new song to the end of the list
+      cout << "ADD SONG" << endl;
+      cout << "Enter song's unique ID:" << endl;
+      cin >> ids;
+      cout << "Enter song's name:" << endl;
+      getline(cin, name);
+      cout << "Enter artist's name:" << endl;
+      getline(cin, artist);
+      cout << "Enter song's length (in seconds):" << endl;
+      cin >> len;
+      PlaylistNode* newNode = new PlaylistNode(ids, name, artist, len);
+      currNode->InsertAfter(newNode);
+      currNode = newNode;
+   }
+   else if(option == 'd'){      //FIXME remove songs from list
+      cout << "REMOVE SONG" << endl;
+      cout << "Enter song's unique ID:" << endl;
+      cin >> ids;
+      while(currNode != nullptr){
+         if(currNode->GetID() == ids){
+            //delete node that matches the id
+            delete currNode;
+            currNode = headNode->GetNext();
+         }
       }
+      
    }
    return 0;
 }
