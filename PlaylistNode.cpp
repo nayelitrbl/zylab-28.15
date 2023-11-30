@@ -1,6 +1,6 @@
 #include "PlaylistNode.h"
 #include <iostream>
-using namespace std;
+
 PlaylistNode::PlaylistNode(){
    this->uniqueID = "none";
    this->songName = "none";
@@ -31,13 +31,19 @@ int PlaylistNode::GetSongLength(){
    return songLength;
 }
 
-// PlaylistNode::PlaylistNode* GetNext(){
-// }
+PlaylistNode* PlaylistNode::GetNext(){
+   return this->nextNodePtr;
+}
 
-// PlaylistNode::void InsertAfter(PlaylistNode* nodePtr){
-// }
+void PlaylistNode::InsertAfter(PlaylistNode* nodePtr){
+   PlaylistNode* tmpNode;
+   tmpNode = this->nextNodePtr;
+   this->nextNodePtr = nodePtr;
+   nodePtr->nextNodePtr = tmpNode;
+}
 
-// PlaylistNode::void SetNext(PlaylistNode* nodePtr){
+// void PlaylistNode::SetNext(PlaylistNode* nodePtr){
+   
 // }
 
 void PlaylistNode::PrintPlaylistNode(){
