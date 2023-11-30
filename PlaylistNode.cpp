@@ -42,9 +42,12 @@ void PlaylistNode::InsertAfter(PlaylistNode* nodePtr){
    nodePtr->nextNodePtr = tmpNode;
 }
 
-// void PlaylistNode::SetNext(PlaylistNode* nodePtr){
-   
-// }
+void PlaylistNode::SetNext(PlaylistNode* nodePtr){
+   PlaylistNode* tmpNode; 
+   tmpNode = this->nextNodePtr;
+   this->nextNodePtr = nodePtr;
+   nodePtr -> nextNodePtr = tmpNode;
+}
 
 void PlaylistNode::PrintPlaylistNode(){
    cout << "Unique ID: " << uniqueID << endl;
