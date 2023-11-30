@@ -21,6 +21,6 @@ class PlaylistNode{
    
    PlaylistNode* GetNext();
    void InsertAfter(PlaylistNode* nodePtr);
-   // void SetNext(PlaylistNode* nodePtr);
+   void SetNext(PlaylistNode* nodePtr);
    
 };
