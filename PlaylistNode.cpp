@@ -32,7 +32,7 @@ int PlaylistNode::GetSongLength(){
 }
 
 PlaylistNode* PlaylistNode::GetNext(){
-   return this->nextNodePtr;
+   return nextNodePtr;
 }
 
 void PlaylistNode::InsertAfter(PlaylistNode* nodePtr){
@@ -55,3 +55,4 @@ void PlaylistNode::PrintPlaylistNode(){
    cout << "Artist Name: " << artistName << endl;
    cout << "Song Length (in seconds): " << songLength << endl;
 }
+   
