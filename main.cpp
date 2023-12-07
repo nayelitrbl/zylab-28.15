@@ -17,8 +17,13 @@ void PrintMenu(const string playlistTitle){
    cout << endl;
 }
 
+
 PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headNode){
    PlaylistNode* currNode = headNode;
+   string ids;
+   string name;
+   string artist;
+   int len;
    
    if(option == 'q'){
       return 0;
@@ -28,15 +33,17 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
       if(currNode == nullptr){
          cout << "Playlist is empty" << endl;  
       }
-      int i = 1;
-      while(currNode != nullptr){
-         cout << i << "." << endl;
-         currNode->PrintPlaylistNode();
-         currNode = currNode->GetNext();
-         i++;
+      else{
+         int i = 1;
+         while(currNode != nullptr){   //FIXME: number is set to the node
+            cout << i << "." << endl;
+            currNode->PrintPlaylistNode();
+            currNode = currNode->GetNext();
+            i++;
+         }
       }
    }
-   else if(option == 'a'){    //FIXME add new song to the end of the list
+   else if(option == 'a'){                 
       cout << "ADD SONG" << endl;
       cout << "Enter song's unique ID:" << endl;
       cin >> ids;
@@ -47,22 +54,57 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
       cout << "Enter song's length (in seconds):" << endl;
       cin >> len;
       PlaylistNode* newNode = new PlaylistNode(ids, name, artist, len);
-      currNode->InsertAfter(newNode);
-      currNode = newNode;
+      if (currNode == nullptr) {    //FIXME add song to the playlist
+         currNode = newNode;
+         currNode = currNode->GetNext();
+      } 
+      else{
+         currNode->InsertAfter(newNode);
+         currNode = newNode;
+      }
+      
    }
-   else if(option == 'd'){      //FIXME remove songs from list
+   else if(option == 'd'){
       cout << "REMOVE SONG" << endl;
       cout << "Enter song's unique ID:" << endl;
       cin >> ids;
       while(currNode != nullptr){
          if(currNode->GetID() == ids){
-            //delete node that matches the id
+            //FIXME: delete node that matches the id
+            cout << "\"" << currNode->GetSongName() << "\"" << " removed." << endl; 
             delete currNode;
-            currNode = headNode->GetNext();
+            currNode = currNode->GetNext();
+            return 0;   
          }
       }
       
    }
+   else if(option == 'c'){
+      cout << "CHANGE POSITION OF SONG" << endl;       //not implementing 
+   }
+   else if(option == 's'){                               //FIXME: cin matches getartist of node, output
+      cout << "OUTPUT SONGS BY SPECIFIC ARTIST" << endl;
+      cout << "Enter artist's name: " << endl;
+      getline(cin, artist);
+      while(currNode != nullptr){
+         if(currNode->GetArtistName() == artist){
+            cout << "FIXME: output songs by artist" << endl;
+            currNode->PrintPlaylistNode();
+            currNode = currNode->GetNext();
+            
+         }
+      }
+   }
+   else if(option == 't'){
+      cout << "OUTPUT TOTAL TIME OF PLAYLIST (IN SECONDS)" << endl;
+      int totalSec = 0; 
+      while(currNode != nullptr){
+         totalSec += currNode->GetSongLength();
+      }
+      currNode = currNode->GetNext();
+      cout << "Total time: " << totalSec << " seconds" << endl;
+   }
+
    return 0;
 }
 
@@ -73,12 +115,18 @@ int main(){
    hNode = new PlaylistNode();
    
    cout << "Enter playlist's title:" << endl;
-   getline(cin, pTitle);
    cout << endl;
+   getline(cin, pTitle);
    PrintMenu(pTitle);
    cout << "Choose an option:" << endl;
    cin >> optChar;
-   ExecuteMenu(optChar, pTitle, hNode);
-
+   while(optChar != 'q'){
+      if(optChar == 'a' || optChar == 'd' ||  optChar == 'c' || optChar == 's' || optChar == 't' || optChar == 'o' || optChar == 'q'){
+         ExecuteMenu(optChar, pTitle, hNode);
+      }     
+      PrintMenu(pTitle);
+      cout << "Choose an option:" << endl;
+      cin >> optChar;
+   }
    return 0;
 }
